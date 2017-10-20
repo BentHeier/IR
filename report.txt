@@ -1,0 +1,9 @@
+First I read in the document and split up each paragraph, enumerated them, removed Gutenberg, I did it in reverse ordre to never get out of bounds. 
+
+Then I removed all punctuation and made everything lower case. 
+
+Then I went to remove the stopwords, I modyfied the given list so it was easire to terminate, I also made it skip any stopmords that never occured in the doc.
+
+Then I created models and a corpus to be queried. 
+
+Lastly I querlied it and prints the result. 

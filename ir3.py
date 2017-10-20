@@ -23,7 +23,6 @@ for w in words:
         w[i] = w[i].lower()
 
 stemmer = PorterStemmer()
-word = "Economics"
 dictionary = gensim.corpora.Dictionary(words)
 
 s = codecs.open('common-english-words.txt', "r", "utf-8")

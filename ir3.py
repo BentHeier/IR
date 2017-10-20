@@ -46,6 +46,27 @@ corpus = [dictionary.doc2bow(text) for text in words]
 
 tfidf_model = gensim.models.TfidfModel(corpus)
 tfidf_corpus = tfidf_model[corpus]
-lsi = gensim.models.LsiModel(corpus, id2word=dictionary, num_topics=2)
-index = gensim.similarities.MatrixSimilarity(lsi[corpus])
-print(index)
+
+index = gensim.similarities.MatrixSimilarity(corpus)
+lsi_model = gensim.models.LsiModel(corpus, id2word=dictionary, num_topics=2)
+lsi_index = gensim.similarities.MatrixSimilarity(lsi_model[corpus])
+
+
+query_text = "What is the function of money?"
+query_text.lower().translate(str.maketrans('','',string.punctuation+"\n\r\t"))
+query = query_text.split()
+query = dictionary.doc2bow(query)
+query_index = tfidf_model[query]
+doc2similarity = enumerate(index[query])
+results = sorted(doc2similarity, key=lambda kv: -kv[1])[:3]
+
+print("Results for the TF-IDF:\n")
+for r in results:
+    print(docs[r[0]])
+
+lsi_query = lsi_model[query]
+doc2similarity = enumerate(lsi_index[lsi_query])
+lsi_results = ( sorted(doc2similarity, key=lambda kv: -kv[1])[:3] )
+print("\nResults for LSI")
+for r in lsi_results:
+    print(docs[r[0]])
